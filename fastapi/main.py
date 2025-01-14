@@ -21,8 +21,8 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/test", response_class=HTMLResponse)
-async def test(request: Request):
+@app.get("/home", response_class=HTMLResponse)
+async def home(request: Request):
     
    
     return templates.TemplateResponse(
