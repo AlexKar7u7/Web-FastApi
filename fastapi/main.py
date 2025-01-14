@@ -26,15 +26,30 @@ async def home(request: Request):
     
    
     return templates.TemplateResponse(
-        request=request, name="index.html", context={"nombre": "pepe"}                                                      
+        request=request, name="index.html", #context={"nombre": "pepe"}                                                      
     )
 
-@app.get("/items", response_class=HTMLResponse)
-async def read_item(request: Request):
+@app.get("/registrarse", response_class=HTMLResponse)
+async def registrarse(request: Request):
     
-    students = [ {"nombre": "pepe", "edad": 20,"score": 50}, {"nombre": "pepe", "edad": 20,"score": 50}, {"nombre": "pepe", "edad": 20,"score": 90}]
+   
     return templates.TemplateResponse(
-        request=request, name="students.html", context={"nombre": "pepe","students": students}                                                      
+        request=request, name="Registrarse.html", #context={"nombre": "pepe"}                                                      
     )
 
-
+@app.get("/recursos", response_class=HTMLResponse)
+async def recursos(request: Request):
+    
+   
+    return templates.TemplateResponse(
+        request=request, name="Recursos.html", #context={"nombre": "pepe"}                                                      
+    )
+    
+    
+@app.get("/utilesrise", response_class=HTMLResponse)
+async def utilesrise(request: Request):
+    
+   
+    return templates.TemplateResponse(
+        request=request, name="UtilesMHRise.html", #context={"nombre": "pepe"}                                                      
+    )
