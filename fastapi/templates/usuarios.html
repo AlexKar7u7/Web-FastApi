@@ -13,36 +13,63 @@
 <body>
     {% block nav %}
     {% endblock %}
-    {% if nombre %}
-     <h1>Hola {{nombre}}</h1>
-     {% endif %}
+    <h1 class="mb-4 text-center">Añadir y Borrar Usuarios</h1>
+
+    <!-- Formulario para añadir usuario -->
+    <div class="card p-4 mb-4">
+        <h3>Añadir Usuario</h3>
+        <form action="{{ url_for('add_usuarios') }}" method="post">
+            <div class="mb-3">
+                <label for="id" class="form-label">ID:</label>
+                <input type="text" class="form-control" name="id" placeholder="Ingrese ID" required>
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombre" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Añadir Usuario</button>
+        </form>
+    </div>
+
+    <!-- Formulario para eliminar usuario -->
+    <div class="card p-4 mb-4">
+        <h3>Borrar Usuario</h3>
+        <form action="{{ url_for('del_usuarios') }}" method="post">
+            <div class="mb-3">
+                <label for="usuario_id" class="form-label">Seleccionar usuario:</label>
+                <select name="usuario_id" class="form-select" required>
+                    {% for usuario in usuarios %}
+                        <option value="{{ usuario.id }}">{{ usuario.nombre }} (ID: {{ usuario.id }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-danger">Borrar Usuario</button>
+        </form>
+    </div>
+
+    <!-- Lista de usuarios -->
+    <h2 class="text-center">Lista de Usuarios</h2>
     {% if usuarios %}
-        {% for usuario in usuarios %}
-        {{usuario.nombre}} <a href="/delete_usuarios/{{usuario.id}}" >delete</a><br>
-        {% endfor %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.nombre }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% else %}
-        <h1>No hay usuarios</h1>
+        <h3 class="text-center text-muted">No hay usuarios registrados</h3>
     {% endif %}
-    <h1>Añadir Usuario</h1>
 
-
-     <form action="{{ url_for('add_usuarios') }}" method="post">
-          <input type="text" name="nombre" placeholder="Nombre">
-          <input type="submit" value="Enviar">
-     </form>
-
-          <form action="{{ url_for('del_usuarios') }}" method="post">
-
-
-               <select  name="alumno_id">
-                    {% for alumno in alumnos %}  
-<option value="{{usuario.id}}">{{usuario.nombre}}</option>
-                    {% endfor%}
-
-               </select>
-               
-               <input type="submit" value="Borrar">
-          </form>
 </body>
 </html>
 </html>

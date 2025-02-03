@@ -100,14 +100,14 @@ def form_add_usuarios(request: Request):
     )
 
 @app.post("/addusuarios")
-def add_usuarios(request: Request, nombre: Annotated[str, Form()] = None):
-    if nombre is None:
+def add_usuarios(request: Request,id: Annotated[int, Form()], nombre: Annotated[str, Form()] = None):
+    if nombre is None or id is None:
         return templates.TemplateResponse(
         request=request, name="base-usuarios.html", context={"nombre": "pepe"}
         )
     
     dao = DaoUsuarios()
-    dao.insert(database, nombre)
+    dao.insert(database,id, nombre)
     
     usuarios =  dao.get_all(database)
     return templates.TemplateResponse(
